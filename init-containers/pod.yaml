@@ -1,0 +1,28 @@
+apiVersion: v1
+kind: Pod
+metadata:
+  name: init-containers-demo
+  labels:
+    app: init-containers-demo
+spec:
+  containers:
+    - name: init-containers-demo-container
+      image: busybox:1.28
+      command: ["sh", "-c", "echo The app is running! && sleep 3600"]
+  initContainers:
+    - name: init-containers-demo-service
+      image: busybox:1.28
+      command:
+        [
+          "sh",
+          "-c",
+          "until nslookup init-containers-demo-service.$(cat /var/run/secrets/kubernetes.io/serviceaccount/namespace).svc.cluster.local; do echo waiting for init-containers-demo-service; sleep 2; done",
+        ]
+    - name: init-containers-demo-db
+      image: busybox:1.28
+      command:
+        [
+          "sh",
+          "-c",
+          "until nslookup init-containers-demo-db.$(cat /var/run/secrets/kubernetes.io/serviceaccount/namespace).svc.cluster.local; do echo waiting for init-containers-demo-db; sleep 2; done",
+        ]
