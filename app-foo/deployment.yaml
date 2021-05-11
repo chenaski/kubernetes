@@ -14,7 +14,7 @@ spec:
     spec:
       containers:
         - name: kube-foo-app
-          image: chenaski/foo:v1
+          image: chenaski/foo:v2
           ports:
             - containerPort: 3000
               protocol: TCP

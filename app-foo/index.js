@@ -1,9 +1,26 @@
 const express = require("express");
 const app = express();
 
+const state = {
+  count: 0,
+  max: 5,
+};
+
+const incrementOrDie = () => {
+  if (state.count === 5) process.exit(1);
+  state.count++;
+};
+
 app.get("/", (req, res) => {
   console.log("FOO: /");
-  res.send(`[${new Date().toLocaleTimeString()}]: This is FOO!`);
+
+  incrementOrDie();
+
+  res.send(
+    `[${new Date().toLocaleTimeString()} | ${process.env.HOSTNAME} | ${
+      state.count
+    }/${state.max}]: This is FOO!`
+  );
 });
 
 app.get("/who", (req, res) => {
