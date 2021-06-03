@@ -1,0 +1,17 @@
+apiVersion: apps/v1
+kind: ReplicaSet
+metadata:
+  name: rs-overlap
+spec:
+  replicas: 3
+  selector:
+    matchLabels:
+      tier: overlap
+  template:
+    metadata:
+      labels:
+        tier: overlap
+    spec:
+      containers:
+        - name: rs-overlap-pod
+          image: chenaski/foo:v1

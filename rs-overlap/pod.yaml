@@ -1,0 +1,10 @@
+apiVersion: v1
+kind: Pod
+metadata:
+  name: not-rs-overlap-pod
+  labels:
+    tier: overlap
+spec:
+  containers:
+    - name: not-rs-overlap-container
+      image: chenaski/foo:v2
